@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * @Description 工票相关业务的控制器
@@ -46,6 +46,13 @@ public class TicketController {
         ticketService.saveTicket(one);
         model.addAttribute("controllerMsg","保存工票");
         return "success";
+    }
+
+    @RequestMapping("/showAllTickets")
+    public String listAllTickets(Model model) {
+        List<TicketOne> tickets = ticketService.findAllTickets();
+        model.addAttribute("tickets",tickets);
+        return "resultPage";
     }
 
 }

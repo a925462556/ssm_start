@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 /**
  * @Description
  * @auther swc
@@ -22,5 +25,15 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public void saveTicket(TicketOne ticket) {
         ticketDao.saveTicket(ticket);
+    }
+
+    //查询所有工票
+    public List<TicketOne> findAllTickets() {
+        List<TicketOne> tickets = ticketDao.findAll();
+        for (TicketOne ticket : tickets) {
+            String format = new SimpleDateFormat("yyyy-MM-dd").format(ticket.getDate());
+            ticket.setDateStr(format);
+        }
+        return tickets;
     }
 }
