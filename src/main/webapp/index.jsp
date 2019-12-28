@@ -5,7 +5,8 @@
 </head>
 <body>
 
-
+    <a href="ticket/toCalOnePage">工票计算器</a><br>
+    <a href="">查看结果</a><br>
 
 </body>
 </html>

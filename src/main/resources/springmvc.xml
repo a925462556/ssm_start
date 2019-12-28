@@ -14,6 +14,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
     <!--配置注解扫描,只扫描controller注解-->
     <context:component-scan base-package="cn.swc">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
     </context:component-scan>
 
     <!--配置视图解析器-->
@@ -24,6 +25,14 @@ http://www.springframework.org/schema/context/spring-context.xsd">
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--配置自定义转换器-->
+    <bean id="conversionServiceFactoryBean" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="cn.swc.util.DateConvert"/>
+            </set>
+        </property>
+    </bean>
 
     <!-- 设置静态资源不过滤 -->
     <mvc:resources location="/css/" mapping="/css/**" />
@@ -31,6 +40,6 @@ http://www.springframework.org/schema/context/spring-context.xsd">
     <mvc:resources location="/js/" mapping="/js/**" />
 
     <!--开启springMVC注解支持-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionServiceFactoryBean"/>
 
 </beans>
