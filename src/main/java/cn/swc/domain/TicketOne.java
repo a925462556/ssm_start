@@ -8,17 +8,8 @@ import java.util.Date;
  * @create 2019-12-28 12:54
  */
 public class TicketOne {
-    /*
-    表份数:<input type="number" name="tableNum"><br>
-        A0张数:<input type="number" name="A0Num"><br>
-        A1张数:<input type="number" name="A1Num"><br>
-        A2张数:<input type="number" name="A2Num"><br>
-        A3张数:<input type="number" name="A3Num"><br>
-        A4张数:<input type="number" name="A4Num"><br>
-        图纸份数:<input type="number" name="paperNum"><br>
-        加数:<input type="number" name="addNum"><br>
-        <input type="submit" value="提交"><br>
-     */
+
+    private int id;
     private int tableNum;
     private int A0Num;
     private int A1Num;
@@ -30,6 +21,14 @@ public class TicketOne {
     private double totalCount;
     private Date date;
     private String dateStr;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getDateStr() {
         return dateStr;

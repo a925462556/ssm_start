@@ -23,7 +23,7 @@
     <!--连接池-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql:///ssm"/>
+        <property name="jdbcUrl" value="jdbc:mysql:///worktable"/>
         <property name="user" value="root"/>
         <property name="password" value="root"/>
     </bean>
