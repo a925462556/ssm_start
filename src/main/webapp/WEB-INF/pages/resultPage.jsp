@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -17,6 +18,23 @@
         $(function () {
             $("table tr:last-child").addClass("lastRecord");
 
+            //选择器选择所有被选中的复选框
+            $("#allBox").click(function () {
+                $("input[id != 'allBox']").prop("checked",$("#allBox").prop("checked"));
+            })
+
+            //对所有选中的checkbox项的totalCount进行计算
+            $("#calBtn").click(function () {
+                var totalCountResult = 0;
+                //1.选中所有的属性为valueTr的tr标签
+                var $selectTr = $("tr[name='valueTr'] > td > input:checked");
+
+                $selectTr.each(function (index, element) {
+                    totalCountResult += parseFloat($selectTr.get(index).getAttribute("oneOfNumber"));
+                })
+
+                $("#showPlace").html("计算结果总数为:"+totalCountResult)
+            })
         })
     </script>
 </head>
@@ -37,8 +55,8 @@
             <td>可选操作</td>
         </tr>
         <c:forEach items="${tickets}" var="ticket" varStatus="s">
-            <tr>
-                <td>${s.count}<input type="checkbox"></td>
+            <tr name="valueTr">
+                <td>${s.count}<input type="checkbox" id="${ticket.id}" oneOfNumber="${ticket.totalCount}"></td>
                 <td>${ticket.tableNum}</td>
                 <td>${ticket.a0Num}</td>
                 <td>${ticket.a1Num}</td>
@@ -57,5 +75,9 @@
         </c:forEach>
     </table><br>
     <a href="../ticket/toCalOnePage">继续添加工票</a><br>
+    <button id="calBtn">计算选中项综合</button><br>
+    <h3 id="showPlace">
+
+    </h3><br>
 </body>
 </html>
