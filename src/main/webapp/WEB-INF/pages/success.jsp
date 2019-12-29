@@ -5,5 +5,7 @@
 </head>
 <body>
     <h3>${msg}操作成功</h3>
+    <a href="../ticket/toCalOnePage">继续添加工票</a><br>
+    <a href="../ticket/showAllTickets">复查结果</a><br>
 </body>
 </html>

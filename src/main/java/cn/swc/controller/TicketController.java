@@ -55,4 +55,37 @@ public class TicketController {
         return "resultPage";
     }
 
+    @RequestMapping("/deleteOne")
+    public String deleteOne(int id,Model model) {
+        ticketService.deleteOneTicket(id);
+        model.addAttribute("controllerMsg","删除单张工票");
+        return "success";
+    }
+
+    @RequestMapping("/toChangePage")
+    public String toChangePage(int id,Model model) {
+        //1.根据id查询数据库中对应的工票数据
+        TicketOne preTicket = ticketService.findById(id);
+        model.addAttribute("ticket",preTicket);
+        return "changePage";
+    }
+
+    @RequestMapping("/calAndUpdate")
+    public String updateOne(TicketOne one,Model model) {
+        //1.重新计算
+        double totalCount = one.getTableNum()*2.5 +
+                (one.getA4Num() + one.getA3Num()*2 + one.getA2Num()*4 + one.getA3Num()*8 + one.getA0Num()*16)*one.getPaperNum() +
+                one.getAddNum();
+        //2.补充数据
+        one.setTotalCount(totalCount);
+        String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(one.getDate());
+        one.setDateStr(dateStr);
+        System.out.println(one);
+        //3.更新数据库中的数据
+        ticketService.updateOneTicket(one);
+
+        model.addAttribute("controllerMsg","修改表单成功");
+        return "success";
+    }
+
 }

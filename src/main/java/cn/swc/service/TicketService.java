@@ -22,4 +22,23 @@ public interface TicketService {
      * @return 工票集合
      */
     List<TicketOne> findAllTickets();
+
+    /**
+     * 删除被选中的工票
+     * @param id 编号
+     */
+    void deleteOneTicket(int id);
+
+    /**
+     * 更新选中的工票的方法
+     * @param one 修改好后的工票
+     */
+    void updateOneTicket(TicketOne one);
+
+    /**
+     * 根据id查找对应的工票
+     * @param id 工票id
+     * @return 工票实体类对象
+     */
+    TicketOne findById(int id);
 }

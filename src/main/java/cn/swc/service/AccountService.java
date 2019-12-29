@@ -22,4 +22,5 @@ public interface AccountService {
      * @param account 要保存的账户
      */
     void saveAccount(Account account);
+
 }

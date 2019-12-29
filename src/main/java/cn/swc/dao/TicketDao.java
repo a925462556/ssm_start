@@ -1,10 +1,7 @@
 package cn.swc.dao;
 
 import cn.swc.domain.TicketOne;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -40,10 +37,37 @@ public interface TicketDao {
             @Result(property = "A2Num", column = "A2Num"),
             @Result(property = "A3Num", column = "A3Num"),
             @Result(property = "A4Num", column = "A4Num"),
-            @Result(property = "pageNum", column = "pageNum"),
+            @Result(property = "paperNum", column = "paperNum"),
             @Result(property = "addNum", column = "addNum"),
             @Result(property = "totalCount", column = "totalCount"),
             @Result(property = "date", column = "date_")
     })
     List<TicketOne> findAll();
+
+    /**
+     * 删除单一选定的工票
+     *
+     * @param id 要删除的工票id
+     */
+    @Delete("delete from ticket where id = #{id}")
+    void deleteTicket(int id);
+
+    /**
+     * 修改单一选定的工票
+     * 注意:修改好以后需要重新计算,再调用该更新方法
+     * @param one 修改好后的工票实体对象
+     */
+    @Update("update ticket set tableNum=#{tableNum},A0Num=#{A0Num},A1Num=#{A1Num},A2Num=#{A2Num}," +
+            "A3Num=#{A3Num},A4Num=#{A4Num},paperNum=#{paperNum},addNum=#{addNum},totalCount=#{totalCount},date_=#{date} " +
+            "where id=#{id}")
+    void changeOne(TicketOne one);
+
+    /**
+     * 根据id查询工票的方法
+     * @param id 工票的id
+     * @return 相应id的工票
+     */
+    @Select("select * from ticket where id=#{id}")
+    @ResultMap("ticketMap")
+    TicketOne findTicketById(int id);
 }

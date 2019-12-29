@@ -22,6 +22,7 @@ public class TicketServiceImpl implements TicketService {
     @Qualifier("ticketDao")
     private TicketDao ticketDao;
 
+    //保存
     @Override
     public void saveTicket(TicketOne ticket) {
         ticketDao.saveTicket(ticket);
@@ -35,5 +36,20 @@ public class TicketServiceImpl implements TicketService {
             ticket.setDateStr(format);
         }
         return tickets;
+    }
+
+    @Override
+    public void deleteOneTicket(int id) {
+        ticketDao.deleteTicket(id);
+    }
+
+    @Override
+    public void updateOneTicket(TicketOne one) {
+        ticketDao.changeOne(one);
+    }
+
+    @Override
+    public TicketOne findById(int id) {
+        return ticketDao.findTicketById(id);
     }
 }

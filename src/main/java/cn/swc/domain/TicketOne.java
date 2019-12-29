@@ -117,4 +117,22 @@ public class TicketOne {
     public void setTotalCount(double totalCount) {
         this.totalCount = totalCount;
     }
+
+    @Override
+    public String toString() {
+        return "TicketOne{" +
+                "id=" + id +
+                ", tableNum=" + tableNum +
+                ", A0Num=" + A0Num +
+                ", A1Num=" + A1Num +
+                ", A2Num=" + A2Num +
+                ", A3Num=" + A3Num +
+                ", A4Num=" + A4Num +
+                ", paperNum=" + paperNum +
+                ", addNum=" + addNum +
+                ", totalCount=" + totalCount +
+                ", date=" + date +
+                ", dateStr='" + dateStr + '\'' +
+                '}';
+    }
 }
