@@ -1,30 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>计算器一</title>
-    <script src="../../js/jquery-3.3.1.min.js"></script>
-    <script>
-        function getNowFormatDate() {
-            var date = new Date();
-            var seperator1 = "-";
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var strDate = date.getDate();
-            if (month >= 1 && month <= 9) {
-                month = "0" + month;
-            }
-            if (strDate >= 0 && strDate <= 9) {
-                strDate = "0" + strDate;
-            }
-            var currentdate = year + seperator1 + month + seperator1 + strDate;
-            return currentdate;
-        }
-
-        $(function () {
-            var date = getNowFormatDate();
-            $("#time").attr("value",date);
-        })
-    </script>
 </head>
 <body>
     <form action="../ticket/calOneResult" method="post">

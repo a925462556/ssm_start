@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
- * @Description
+ * @Description 工票服务的实现类
  * @auther swc
  * @create 2019-12-28 21:49
  */
@@ -51,5 +52,10 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public TicketOne findById(int id) {
         return ticketDao.findTicketById(id);
+    }
+
+    @Override
+    public List<TicketOne> findTodayRecords() {
+        return ticketDao.findTicketByDate(new java.sql.Date(new Date().getTime()));
     }
 }

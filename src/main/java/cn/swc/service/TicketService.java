@@ -2,6 +2,7 @@ package cn.swc.service;
 
 import cn.swc.domain.TicketOne;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,4 +42,10 @@ public interface TicketService {
      * @return 工票实体类对象
      */
     TicketOne findById(int id);
+
+    /**
+     * 查找今日的记录
+     * @return 今天的记录集合
+     */
+    List<TicketOne> findTodayRecords();
 }

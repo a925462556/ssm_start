@@ -4,6 +4,8 @@ import cn.swc.domain.TicketOne;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -70,4 +72,15 @@ public interface TicketDao {
     @Select("select * from ticket where id=#{id}")
     @ResultMap("ticketMap")
     TicketOne findTicketById(int id);
+
+    /**
+     * 根据日期查询工票的方法
+     * @param date 要查询的日期
+     * @return 该日的记录集合
+     */
+    //测试:能否使用util的date 如果不行再转化为sql的date进行注入
+    //结论:不能
+    @Select("select * from ticket where date_=#{date}")
+    @ResultMap("ticketMap")
+    List<TicketOne> findTicketByDate(Date date);
 }

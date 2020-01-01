@@ -2,12 +2,15 @@ package cn.swc.controller;
 
 import cn.swc.domain.TicketOne;
 import cn.swc.service.TicketService;
+import org.apache.ibatis.annotations.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -37,7 +40,7 @@ public class TicketController {
     @RequestMapping("/calOneResult")
     public String ResultCal(TicketOne one, Model model) {
         double totalCount = one.getTableNum()*2.5 +
-                (one.getA4Num() + one.getA3Num()*2 + one.getA2Num()*4 + one.getA3Num()*8 + one.getA0Num()*16)*one.getPaperNum() +
+                (one.getA4Num() + one.getA3Num()*2 + one.getA2Num()*4 + one.getA1Num()*8 + one.getA0Num()*16)*one.getPaperNum() +
                 one.getAddNum();
         one.setTotalCount(totalCount);
         String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(one.getDate());
@@ -74,7 +77,7 @@ public class TicketController {
     public String updateOne(TicketOne one,Model model) {
         //1.重新计算
         double totalCount = one.getTableNum()*2.5 +
-                (one.getA4Num() + one.getA3Num()*2 + one.getA2Num()*4 + one.getA3Num()*8 + one.getA0Num()*16)*one.getPaperNum() +
+                (one.getA4Num() + one.getA3Num()*2 + one.getA2Num()*4 + one.getA1Num()*8 + one.getA0Num()*16)*one.getPaperNum() +
                 one.getAddNum();
         //2.补充数据
         one.setTotalCount(totalCount);
@@ -88,4 +91,25 @@ public class TicketController {
         return "success";
     }
 
+    //删除选中
+    @RequestMapping("/delSelected")
+    public String delAllSelected(HttpServletRequest request) {
+        String[] delIds = request.getParameterValues("delId");
+        for (String delId : delIds) {
+            ticketService.deleteOneTicket(Integer.parseInt(delId));
+        }
+        return "success";
+    }
+
+    //查找今天的记录
+    @RequestMapping("/seeTodayRecord")
+    public String findTodayRecords(Model model){
+        List<TicketOne> todayRecords = ticketService.findTodayRecords();
+        for (TicketOne one : todayRecords) {
+            String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(one.getDate());
+            one.setDateStr(dateStr);
+        }
+        model.addAttribute("tickets",todayRecords);
+        return "resultPage";
+    }
 }
